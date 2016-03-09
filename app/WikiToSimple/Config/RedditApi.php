@@ -1,6 +1,6 @@
 <?php
 
-namespace GiphyBot\Config;
+namespace WikiToSimple\Config;
 
 final class RedditAPI {
 
