@@ -51,13 +51,11 @@ class Reddit
             "password" => $this->password
         );
 
-        $finalFields = http_build_query($fields);
-
         $curl = curl_init(RedditAPI::REDDIT_ACCESS_TOKEN_URL);
         curl_setopt($curl, CURLOPT_USERAGENT, self::USER_AGENT);
         curl_setopt($curl, CURLOPT_USERPWD, $this->clientId . ":" . $this->clientSecret);
         curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $finalFields);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $fields);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         $result = curl_exec($curl);
