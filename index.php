@@ -19,6 +19,4 @@ if ($isConnected) {
 
         var_dump($thread['url']);
     }
-
-    $reddit->postCommentToThread("t3_49ofnk", "test message");
 }
