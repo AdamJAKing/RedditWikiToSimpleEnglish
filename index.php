@@ -5,7 +5,7 @@ use WikiToSimple\Config;
 
 require_once("vendor/autoload.php");
 
-require_once("app/WikiToSimple/Config/Settings.php");
+require_once("app/WikiToSimple/Includes/Settings.inc");
 
 $reddit = new Reddit($settings['username'], $settings['password'], $settings['clientId'], $settings['clientSecret']);
 $isConnected = $reddit->connect();
