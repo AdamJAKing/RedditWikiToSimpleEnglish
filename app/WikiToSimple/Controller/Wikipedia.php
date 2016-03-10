@@ -16,10 +16,12 @@ class Wikipedia
             $articleNameStart = stripos($originalLink, "/wiki/") + 6;
 
             // Gets just the article name and Strips off the # link operator
-            $articleRawName = substr($originalLink, $articleNameStart, strpos($originalLink, "#") - $articleNameStart);
+            $articleRawName = substr($originalLink, $articleNameStart);
 
-            if (!$articleRawName) {
-                return;
+            if (strpos($articleRawName, "#") !== false) {
+                $hashPos = strpos($articleRawName, "#");
+
+               $articleRawName =  substr($articleRawName, 0, $hashPos);
             }
 
             $articleRemoveUnderscores =  str_ireplace("_", " ", $articleRawName);
@@ -27,5 +29,6 @@ class Wikipedia
 
             return $safeArticleName;
         }
+        return;
     }
 }
