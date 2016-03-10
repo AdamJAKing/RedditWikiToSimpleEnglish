@@ -6,22 +6,14 @@ use WikiToSimple\Config\RedditAPI;
 
 class Reddit
 {
-    private $username;
-    private $password;
-    private $clientId;
-    private $clientSecret;
+    private $username = REDDIT_USER;
+    private $password = REDDIT_PASSWORD;
+    private $clientId = REDDIT_CLIENT_ID;
+    private $clientSecret = REDDIT_CLIENT_SECRET;
 
     private $accessToken;
 
     const USER_AGENT = "WikipediaToSimpleEnglish-Bot created by AdamKSoftware";
-
-    function __construct($username, $password, $clientId, $clientSecret)
-    {
-        $this->username = $username;
-        $this->password = $password;
-        $this->clientId = $clientId;
-        $this->clientSecret = $clientSecret;
-    }
 
     private function generateOAuthCurlRequest($url, $curlOpts = null)
     {
