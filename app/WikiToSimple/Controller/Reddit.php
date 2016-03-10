@@ -1,8 +1,8 @@
 <?php
 
-namespace GiphyBot\Controller;
+namespace WikiToSimple\Controller;
 
-use GiphyBot\Config\RedditAPI;
+use WikiToSimple\Config\RedditAPI;
 
 class Reddit
 {
