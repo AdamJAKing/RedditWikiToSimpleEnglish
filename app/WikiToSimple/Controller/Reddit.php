@@ -26,7 +26,12 @@ class Reddit
     private function generateOAuthCurlRequest($url, $curlOpts = null)
     {
         $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array("authorization: bearer " . $this->accessToken));
+
+        // If the accessToken exists, then we must be authorised and we should use this header
+        if ($this->accessToken) {
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array("authorization: bearer " . $this->accessToken));
+        }
+
         curl_setopt($curl, CURLOPT_USERAGENT, self::USER_AGENT);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
