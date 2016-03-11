@@ -18,19 +18,19 @@ $isConnected = $reddit->connect();
 if ($isConnected) {
     $threads = $reddit->getTopThreadsInfo();
 
-    $wikiLinks = array();
-
-    $wikipedia = new Wikipedia();
-
     foreach ($threads as $thread) {
         $threadFullName = $thread['name'];
 
         if (stripos($thread['url'], "en.wikipedia.org") !== false ) {
-            $wikiLinks[] = $thread['url'];
-        }
-    }
+            //$wikiLinks[] = $thread['url'];
 
-    foreach ($wikiLinks as $wikiLink) {
-        $article = $wikipedia->createSafeAPIArticleFromLink($wikiLink);
+            $wikiLink = $thread['url'];
+            $article = Wikipedia::createSafeAPIArticleFromLink($wikiLink);
+
+            if (Wikipedia::searchForArticle("simple", $article)) {
+                $replacementUrl = Wikipedia::changeArticleUrLLanguage($wikiLink, "en", "simple");
+
+            }
+        }
     }
 }
