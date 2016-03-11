@@ -29,8 +29,8 @@ final class Wikipedia
     }
 
     /**
-     * @param $originalLink A Link to a Wikipedia article
-     * @return Returns a safe API article name on success or null on failure
+     * @param string $originalLink A Link to a Wikipedia article
+     * @return string safe API article name name on success or null on failure
      */
     static function createSafeAPIArticleFromLink($originalLink) {
         if (stripos($originalLink, "/wiki/") !== false) {
@@ -55,10 +55,10 @@ final class Wikipedia
     }
 
     /**
-     * @param $url URL containing original language
-     * @param $oldLang Old language to replace
-     * @param $newLang New language to append
-     * @return New url on success or null on failure
+     * @param $url string $url containing original language
+     * @param $oldLang string $old language to replace
+     * @param $newLang string $new language to append
+     * @return string of the new url on success or null on failure
      */
 
     static function changeArticleUrLLanguage($url, $oldLang, $newLang) {
