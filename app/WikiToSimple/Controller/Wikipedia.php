@@ -33,7 +33,7 @@ final class Wikipedia
      * @return string safe API article name name on success or null on failure
      */
     static function createSafeAPIArticleFromLink($originalLink) {
-        if (stripos($originalLink, "/wiki/") !== false) {
+        if (stripos($originalLink, "en.wikipedia.org/wiki/") !== false) {
 
             $articleNameStart = stripos($originalLink, "/wiki/") + 6;
 
@@ -51,6 +51,7 @@ final class Wikipedia
 
             return $safeArticleName;
         }
+
         return;
     }
 
@@ -72,5 +73,14 @@ final class Wikipedia
         }
 
         return;
+    }
+
+    static function getLinkFromText($text) {
+        /**
+         * Matches any wikipedia article links in a message,ignoring certain special characters. Www is also optional
+         */
+        preg_match_all("/https?:\/\/(?:www.)?en.wikipedia.org\/wiki\/[^<>*$@!]+/", $text, $matches);
+
+        return $matches;
     }
 }
