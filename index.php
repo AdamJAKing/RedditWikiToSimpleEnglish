@@ -18,18 +18,13 @@ if ($isConnected) {
     $threads = $reddit->getTopThreadsInfo();
 
     foreach ($threads as $thread) {
-        $threadFullName = $thread['name'];
 
-        if (stripos($thread['url'], "en.wikipedia.org") !== false ) {
-            //$wikiLinks[] = $thread['url'];
+        $wikiLink = $thread['url'];
+        $article = Wikipedia::createSafeAPIArticleFromLink($wikiLink);
 
-            $wikiLink = $thread['url'];
-            $article = Wikipedia::createSafeAPIArticleFromLink($wikiLink);
-
-            if (Wikipedia::searchForArticle("simple", $article)) {
-                $replacementUrl = Wikipedia::changeArticleUrLLanguage($wikiLink, "en", "simple");
-
-            }
+        if (Wikipedia::searchForArticle("simple", $article)) {
+            $replacementUrl = Wikipedia::changeArticleUrLLanguage($wikiLink, "en", "simple");
+            //TODO Logic for posting data to original subreddit + storing link in database
         }
     }
 }
