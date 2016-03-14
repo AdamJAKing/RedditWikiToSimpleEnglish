@@ -96,7 +96,7 @@ class Reddit
 
         echo "Getting the top 100 posts on reddit...\n";
 
-        $curlJsonResponse = $this->generateOAuthCurlRequest(RedditAPI::REDDIT_TOP_POSTS_URL . "?limit=100");
+        $curlJsonResponse = $this->generateOAuthCurlRequest(RedditAPI::REDDIT_URL . "?limit=100");
 
         $threadsInfo = array();
 
@@ -134,5 +134,30 @@ class Reddit
         }
 
         return $curlJsonResponse;
+    }
+
+    //TODO Allow this function to search 3+ comments deep from each original reply
+    function getCommentsFromThread($sub, $postId)
+    {
+        $curlJsonResponse = $this->generateOAuthCurlRequest(RedditAPI::REDDIT_URL . "/r/" . $sub . "/comments/" . $postId . ".json?limit=500");
+
+        $comments = array();
+
+        foreach ($curlJsonResponse as $responseKey => $responseValue) {
+
+            if ($responseKey != 0) {
+
+                foreach ($responseValue['data']['children'] as $commentsKey => $commentsValue) {
+
+                    foreach ($commentsValue['data'] as $commentKey => $commentValue) {
+
+                        if ($commentKey == "body") {
+                            $comments[] = $commentValue;
+                        }
+                    }
+                }
+            }
+        }
+        return $comments;
     }
 }
