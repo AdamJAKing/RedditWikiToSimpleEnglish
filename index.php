@@ -1,7 +1,6 @@
 <?php
 
 use WikiToSimple\Controller\Reddit;
-use WikiToSimple\Config;
 use WikiToSimple\Includes\Database;
 use WikiToSimple\Controller\Wikipedia;
 
