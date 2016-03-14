@@ -4,14 +4,6 @@ use WikiToSimple\Controller\Wikipedia;
 
 class WikipediaTest extends PHPUnit_Framework_TestCase{
 
-    /** @var Wikipedia wikipedia */
-    private $wikipedia;
-
-    function setUp()
-    {
-        $this->wikipedia = new Wikipedia();
-    }
-
     function testSafeApiArticleNameConversion()
     {
 
@@ -24,8 +16,26 @@ class WikipediaTest extends PHPUnit_Framework_TestCase{
         );
 
         foreach ($inputData as $link => $expected) {
-            $result = $this->wikipedia->createSafeAPIArticleFromLink($link);
+            $result = Wikipedia::createSafeAPIArticleFromLink($link);
             $this->assertEquals($result, $expected);
+        }
+    }
+
+    function testGetLinkFromText()
+    {
+        $inputData = array(
+            "https://www.en.wikipedia.org/wiki/Test_dawf#" => array("https://www.en.wikipedia.org/wiki/Test_dawf#"),
+            "https://www.en.wikipedia.org/wiki/Tests*_dawf#" => array("https://www.en.wikipedia.org/wiki/Tests"),
+            "www.en.wikipedia.org/wiki/Tests*_dawf#" => array(),
+            "https://en.wikipedia.org/wiki/Tests423_dawf#" => array("https://en.wikipedia.org/wiki/Tests423_dawf#"),
+            "https://www.en.wikipedia.org/wiki/T\$ests*_dawf#" => array("https://www.en.wikipedia.org/wiki/T")
+        );
+
+         foreach ($inputData as $message => $expected) {
+
+            $result = Wikipedia::getLinkFromText($message);
+
+            $this->assertEquals(array($expected), $result);
         }
     }
 }
