@@ -1,8 +1,8 @@
 <?php
 
 use WikiToSimple\Controller\Reddit;
-use WikiToSimple\Config;
 use WikiToSimple\Includes\Database;
+use WikiToSimple\Controller\Wikipedia;
 
 require_once("vendor/autoload.php");
 
@@ -18,8 +18,13 @@ if ($isConnected) {
     $threads = $reddit->getTopThreadsInfo();
 
     foreach ($threads as $thread) {
-        $threadFullName = $thread['name'];
 
-        var_dump($thread['url']);
+        $wikiLink = $thread['url'];
+        $article = Wikipedia::createSafeAPIArticleFromLink($wikiLink);
+
+        if (Wikipedia::searchForArticle("simple", $article)) {
+            $replacementUrl = Wikipedia::changeArticleUrLLanguage($wikiLink, "en", "simple");
+            //TODO Logic for posting data to original subreddit + storing link in database
+        }
     }
 }
